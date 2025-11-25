@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Analyseur de dénivelé GPS - Calcul d'itinéraires avec profil de pente">
+    <title>Analyseur de Dénivelé GPS</title>
+
+    <!-- CSS tiers -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    
+    <!-- CSS local -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle">🌙 Mode Jour</button>
+
+    <!-- Loading Spinner -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div>Calcul en cours...</div>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="cards-container">
+        <div class="controls">
+            <input class="cta-input" type="text" id="searchLocation" placeholder="Rechercher un lieu...">
+            <button class="cta-button" id="searchBtn">🔍 Rechercher</button>
+            <button class="cta-button" id="calculateBtn">Calculer le tracé</button>
+            <button class="cta-danger" id="clearBtn">Effacer</button>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="cards-container">
+        <div class="card">
+            <h2>Carte</h2>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="cards-container">
+        <div class="content">
+            <div class="card">
+                <h2>Profil de pente</h2>
+                <div class="chart-wrapper">
+                    <canvas id="penteChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="cards-container">
+        <div class="card">
+            <h3>Distance Totale</h3>
+            <div class="value" id="totalDistance">0 km</div>
+        </div>
+        <div class="card">
+            <h3>Dénivelé Positif</h3>
+            <div class="value" id="elevationGain">0 m</div>
+        </div>
+        <div class="card">
+            <h3>Dénivelé Négatif</h3>
+            <div class="value" id="elevationLoss">0 m</div>
+        </div>
+        <div class="card">
+            <h3>Altitude Max</h3>
+            <div class="value" id="maxElevation">0 m</div>
+        </div>
+        <div class="card">
+            <h3>Pente max (%)</h3>
+            <div class="value" id="maxPente">0 %</div>
+        </div>
+        <div class="card">
+            <h3>Pente moyenne (%)</h3>
+            <div class="value" id="moyennePente">0 %</div>
+        </div>
+    </div>
+
+    <!-- JS tiers -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+
+    <!-- JS local -->
+    <script src="script.js"></script>
+</body>
+</html>

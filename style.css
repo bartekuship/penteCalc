@@ -1,0 +1,298 @@
+/* ===== VARIABLES & RESET ===== */
+:root {
+    --custom-pink: #ff006e;
+    --custom-yellow: #ffbe0b;
+    --custom-cyan: #00f5ff;
+    --custom-purple: #8338ec;
+    --dark-bg: #0a0a0a;
+    --card-bg: #1a1a1a;
+    --text-main: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --danger: #ff3864;
+    --success: #06ffa5;
+}
+
+/* Mode jour */
+body.light-mode {
+    --dark-bg: #f5f5f5;
+    --card-bg: #ffffff;
+    --text-main: #1a1a1a;
+    --text-muted: #666666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BODY & LAYOUT ===== */
+body {
+    font-family: 'Courier New', monospace;
+    background: var(--dark-bg);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* ===== THEME TOGGLE ===== */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--card-bg);
+    border: 3px solid var(--custom-cyan);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: var(--text-main);
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+.theme-toggle:hover {
+    background: var(--custom-cyan);
+    color: var(--dark-bg);
+    transform: scale(1.05);
+}
+
+/* ===== LOADING SPINNER ===== */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    font-size: 1.2rem;
+    color: var(--custom-cyan);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.loading.active {
+    display: flex;
+}
+
+.spinner {
+    width: 80px;
+    height: 80px;
+    border: 5px solid var(--card-bg);
+    border-top: 5px solid var(--custom-pink);
+    border-right: 5px solid var(--custom-yellow);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== CONTAINERS ===== */
+.cards-container {
+    max-width: 1400px;
+    margin: 20px auto;
+    padding: 0 20px;
+    display: grid;
+    gap: 20px;
+}
+
+.cards-container:has(.card:only-child),
+.cards-container:has(.controls) {
+    grid-template-columns: 1fr;
+}
+
+.cards-container:has(.card:not(:only-child)) {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* ===== CONTROLS ===== */
+.controls {
+    background: var(--card-bg);
+    padding: 25px;
+    border: 3px solid var(--custom-pink);
+    box-shadow: 5px 5px 0 var(--custom-yellow);
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+body.light-mode .controls {
+    box-shadow: 5px 5px 0 var(--custom-yellow), 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cta-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 20px;
+    background: var(--dark-bg);
+    border: 2px solid var(--custom-cyan);
+    color: var(--text-main);
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.cta-input:focus {
+    border-color: var(--custom-yellow);
+    box-shadow: 0 0 15px rgba(255, 190, 11, 0.5);
+}
+
+.cta-input::placeholder {
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.cta-button,
+.cta-danger {
+    padding: 12px 25px;
+    border: 3px solid;
+    background: var(--dark-bg);
+    color: var(--text-main);
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+}
+
+.cta-button {
+    border-color: var(--custom-yellow);
+}
+
+.cta-button:hover {
+    background: var(--custom-yellow);
+    color: var(--dark-bg);
+    box-shadow: 4px 4px 0 var(--custom-pink);
+}
+
+.cta-danger {
+    border-color: var(--danger);
+}
+
+.cta-danger:hover {
+    background: var(--danger);
+    color: white;
+    box-shadow: 4px 4px 0 var(--custom-purple);
+}
+
+/* ===== CARDS ===== */
+.card {
+    background: var(--card-bg);
+    padding: 25px;
+    border: 2px solid var(--custom-cyan);
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card h2,
+.card h3 {
+    color: var(--custom-yellow);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+/* ===== VALUE DISPLAYS ===== */
+.value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--success);
+    margin-top: 10px;
+    font-family: 'Courier New', monospace;
+}
+
+/* ===== MAP ===== */
+#map {
+    width: 100%;
+    height: 500px;
+    border: 3px solid var(--custom-purple);
+}
+
+/* ===== CHART ===== */
+.chart-wrapper {
+    position: relative;
+    height: 400px;
+    padding: 15px;
+    background: var(--dark-bg);
+    border: 2px solid var(--custom-yellow);
+    margin-top: 15px;
+}
+
+canvas {
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== CONTENT LAYOUT ===== */
+.content {
+    display: grid;
+    gap: 20px;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--custom-cyan);
+    border: 2px solid var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--custom-yellow);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+    }
+    
+    .cta-input,
+    .cta-button,
+    .cta-danger {
+        width: 100%;
+    }
+    
+    .cards-container:has(.card:not(:only-child)) {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+    .value {
+        font-size: 1.5rem;
+    }
+    
+    #map {
+        height: 350px;
+    }
+    
+    .chart-wrapper {
+        height: 300px;
+    }
+}
