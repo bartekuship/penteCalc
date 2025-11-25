@@ -1,4 +1,4 @@
-# 🎸 Analyseur de Dénivelé GPS
+# Analyseur de Dénivelé GPS
 
 > Calculez et visualisez le profil d'élévation de vos itinéraires !
 
@@ -109,7 +109,7 @@ gps-analyzer-custom/
 └── README.md          # Ce fichier
 ```
 
-## 🎨 Personnalisation du style
+## Personnalisation du style
 
 Les couleurs custom sont définies dans les variables CSS :
 
