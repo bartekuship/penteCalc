@@ -22,12 +22,14 @@
 ### Prérequis
 Aucun ! Tout fonctionne directement dans le navigateur.
 
+https://bartekuship.github.io/penteCalc/
+
 ### Lancement
 
 1. **Clonez le repository**
    ```bash
-   git clone https://github.com/votre-username/gps-analyzer-custom.git
-   cd gps-analyzer-custom
+   git clone https://github.com/bartekuship/penteCalc.git
+   cd penteCalc
    ```
 
 2. **Ouvrez le fichier**
