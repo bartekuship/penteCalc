@@ -448,7 +448,7 @@ function calculateStatistics() {
         }
     }
 
-    const maxSlope = getMaxSlope(state.elevationData, totalDist);
+    const maxSlope = getMaxSlope(state.elevationData);
     const avgSlope = getAverageSlope(state.elevationData, totalDist);
 
     updateStatisticsDisplay({
@@ -463,23 +463,15 @@ function calculateStatistics() {
 
 /**
  * Calcule la pente maximale de l'itinéraire
+ * Réutilise calculateSlopes (pentes déjà lissées) pour cohérence avec la carte et le graphique
  * @param {Array<Object>} elevationData - Données d'élévation
- * @param {number} totalDistance - Distance totale en mètres
  * @returns {number} Pente maximale en pourcentage (valeur absolue)
  */
-function getMaxSlope(elevationData, totalDistance) {
+function getMaxSlope(elevationData) {
     if (elevationData.length < 2) return 0;
 
-    const deltaDist = totalDistance / (elevationData.length - 1);
-    let maxSlope = 0;
-
-    for (let i = 0; i < elevationData.length - 1; i++) {
-        const deltaAlt = elevationData[i + 1].elevation - elevationData[i].elevation;
-        const slope = Math.abs((deltaAlt / deltaDist) * 100);
-        if (slope > maxSlope) maxSlope = slope;
-    }
-
-    return maxSlope;
+    const slopes = calculateSlopes(elevationData);
+    return Math.max(...slopes.map(Math.abs));
 }
 
 /**
