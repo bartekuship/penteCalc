@@ -237,6 +237,7 @@ async function calculateRoute() {
         const elevations = await getElevations(sampledData.coordinates);
         
         state.elevationData = buildElevationData(sampledData, elevations);
+        state.elevationData = removeElevationOutliers(state.elevationData);
         state.elevationData = smoothElevationData(state.elevationData);
         
         const slopes = calculateSlopes(state.elevationData);
@@ -367,6 +368,26 @@ function buildElevationData(sampledData, elevations) {
         elevation: elevation || 0,
         segmentDistance: i > 0 ? sampledData.distances[i] - sampledData.distances[i - 1] : 0
     }));
+}
+
+/**
+ * Supprime les outliers d'élévation en remplaçant les points aberrants par interpolation
+ * @param {Array<Object>} data - Données d'élévation brutes
+ * @param {number} [maxSlopePct=25] - Pente maximale tolérable en % avant correction
+ * @returns {Array<Object>} Données corrigées
+ */
+function removeElevationOutliers(data, maxSlopePct = 25) {
+    return data.map((point, i) => {
+        if (i === 0) return point;
+        const deltaAlt = point.elevation - data[i - 1].elevation;
+        const deltaDist = point.distance - data[i - 1].distance;
+        if (deltaDist === 0) return point;
+        const slope = Math.abs((deltaAlt / deltaDist) * 100);
+        if (slope > maxSlopePct) {
+            return { ...point, elevation: data[i - 1].elevation };
+        }
+        return point;
+    });
 }
 
 /**
