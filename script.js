@@ -376,7 +376,7 @@ function buildElevationData(sampledData, elevations) {
  * @param {number} [maxSlopePct=25] - Pente maximale tolérable en % avant correction
  * @returns {Array<Object>} Données corrigées
  */
-function removeElevationOutliers(data, maxSlopePct = 25) {
+function removeElevationOutliers(data, maxSlopePct = 18) {
     return data.map((point, i) => {
         if (i === 0) return point;
         const deltaAlt = point.elevation - data[i - 1].elevation;
